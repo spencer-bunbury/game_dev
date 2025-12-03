@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>to-do list app</title>
+    <script>
+        function additem() {
+            var newitem = document.createElement("div");
+            newitem.innerHTML = document.getElementById("box").value;
+            newitem.onclick = removeitem;
+            document.getElementById("list").appendChild(newitem)
+            savelist();
+        }
+
+        function removeitem() {
+            document.getElementById("list").removeChild(this)
+            savelist();
+        }
+
+        function savelist() {
+            localStorage.storedList = document.getElementById("list").innerHTML;
+        }
+
+        function loadlist() {
+            document.getElementById("list").innerHTML = localStorage.storedList;
+            for (var i = 0; i < list.children.length; i++) {
+                list.children[i].onclick = removeitem;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <br/>
+    <input type="text" id="box" value="type here to add task" <br/>
+    <input type="button" value="additem" onclick="additem" <br/>
+    <div id="list"></div>
+    <script>
+        if (localStorage.storedList) {
+            loadlist();
+        }
+    </script>
+</body>
+
+</html>
