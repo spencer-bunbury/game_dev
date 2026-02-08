@@ -1,0 +1,25 @@
+id = {23,45,67,54,32,76,67}
+print(id)
+id.add(90)
+print(id)
+gag = [1,2,3,4,5,6,7,8,9]
+id.update(gag)
+print(id)
+id.remove(67)
+print(id) 
+a = {1,2,3,4,5}
+b = {4,5,6,7,8}
+print(a.union(b))
+print(a.intersection(b))
+print(a.difference(b))
+print(a.symmetric_difference(b))
+print(a.issubset(b))
+print(a.issuperset(b))
+print(a.isdisjoint(b))
+print (min(a))
+print (max(a))
+print (sum(a))
+print (len(a))
+print (sorted(a))
+print (sorted(a,reverse=True))
+print (a.pop())
