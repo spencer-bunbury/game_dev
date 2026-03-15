@@ -20,6 +20,8 @@ question_index = 0
 is_game_over = False
 time_left = 10
 
+score = 0
+
 def draw():
     screen.fill(color= "medium aquamarine")
     screen.draw.filled_rect(question_box,"blue")
@@ -30,7 +32,13 @@ def draw():
     screen.draw.filled_rect(skip_box,"orange")
     screen.draw.filled_rect(time_box,"green")
     screen.draw.textbox(question[0].strip(),question_box,color= "pink")
-    
+    screen.draw.textbox("skip",skip_box,color= "purple" , angle= 90)
+    screen.draw.textbox(str(time_left),time_box,color= "blue")
+    answer_index = 1
+    for i in answer_boxes:
+        screen.draw.textbox(question[answer_index].strip(),i,color= "blue")    
+        answer_index += 1
+        
 
 def update():
     pass
@@ -42,10 +50,47 @@ def read_question():
         question_count += 1
     file.close()
 
+def update_timer():
+    global time_left
+    if time_left >0:
+        time_left -= 1
+    else:
+        pass
+
+
+def correct_answer():
+    global score,question,time_left,questions
+    score += 1
+    if questions:
+        question = read_next_question()
+        time_left = 10
+    else:
+        game_over()
+
 def read_next_question():
-    global question_index
+    global question_index,questions
     question_index +=1
     return questions.pop(0).split(",")
+
+
+def on_mouse_down(pos):
+    index = 1
+    for box in answer_boxes:
+        if box.collidepoint(pos):
+            if index == int(question[5]):
+                correct_answer()
+            else:
+                game_over()
+        index += 1
+        
+
+def game_over():
+    global question,time_left,is_game_over
+    message = "you scored"+ str(score)+ "/"+ str(question_count),question_box
+    question = [message," "," "," "," "," "," "]
+    time_left = 0
+    is_game_over = True
+
 
 read_question()
 question = read_next_question()
